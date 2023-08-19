@@ -37,7 +37,7 @@ namespace JueguitosPro.Views
             }
         }
         
-        public virtual void Open(Action opened = null)
+        public virtual void Show(Action onShow = null)
         {
             if (gameObject.activeInHierarchy)
             {
@@ -46,7 +46,19 @@ namespace JueguitosPro.Views
             
             SetActive(true);
             
-            opened?.Invoke();
+            onShow?.Invoke();
+        }
+
+        public virtual void Hide(Action onHide = null)
+        {
+            if (!gameObject.activeInHierarchy)
+            {
+                return;
+            }
+            
+            SetActive(false);
+            
+            onHide?.Invoke();
         }
     }
 }

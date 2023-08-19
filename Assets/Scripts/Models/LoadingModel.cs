@@ -2,7 +2,7 @@ using System;
 
 namespace JueguitosPro.Models
 {
-    public class LoginModel
+    public class LoadingModel : ModelBase
     {
         public event Action onSuccess;
         public event Action<string> onFailure;

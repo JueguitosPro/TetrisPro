@@ -1,5 +1,5 @@
 using GooglePlayGames;
-using JueguitosPro.GameModes;
+using JueguitosPro.GameStates;
 using UnityEngine;
 
 namespace JueguitosPro
@@ -19,9 +19,9 @@ namespace JueguitosPro
         {
             GameManager.Instance = new GameManager();
             
-            GameManager.Instance.GameModeManager.Add(new GameModeLogin()
+            GameManager.Instance.GameStateManager.AddState(new GameStateLogin()
             {
-                ViewPrefabPath = AssetManifest.LoginView
+                PrefabPath = AssetPaths.LoadingView
             });
         }
     }

@@ -4,12 +4,12 @@ namespace JueguitosPro
     {
         public static GameManager Instance;
 
-        public readonly GameModeManager GameModeManager;
+        public readonly GameStateManager GameStateManager;
         public readonly ViewManager ViewManager;
 
         public GameManager()
         {
-            GameModeManager = new GameModeManager();
+            GameStateManager = new GameStateManager();
             ViewManager = new ViewManager();
         }
     }

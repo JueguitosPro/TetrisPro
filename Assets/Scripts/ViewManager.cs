@@ -6,43 +6,40 @@ namespace JueguitosPro
 {
     public class ViewManager
     {
-        private RootUI _rootUI;
+        private MainUI _mainUI;
         
         public ViewManager()
         {
-            _rootUI = GameObject.FindObjectOfType<RootUI>();
+            _mainUI = GameObject.FindObjectOfType<MainUI>();
         }
         
-        public T CreateView<T>(string viewPrefabPath, RootUI.CanvasLayer canvasLayer, Action<T> callback = null) where T : ViewBase
+        public T InstantiateView<T>(string prefabPath, MainUI.CanvasLayer canvasLayer, Action<T> callback = null) where T : ViewBase
         {
-            return CreateView<T>(viewPrefabPath, _rootUI.GetCanvasLayer(canvasLayer), callback);
-        }
+            RectTransform parent = _mainUI.GetCanvasLayer(canvasLayer);
 
-        public T CreateView<T>(string viewPrefabPath, Transform parent = null, Action<T> callback = null) where T : ViewBase
-        {
-            var loadRequest = Resources.LoadAsync<T>(viewPrefabPath);
-            // TODO Find the way to wait if this takes more time than expected
-
-            var asset = loadRequest.asset as T;
-            if (asset == null)
-            {
-                string message = $"Unable to find asset {viewPrefabPath} of type {typeof(T)}";
-                throw new UnityException(message);
-            }
-
-            return CreateView(asset, parent, callback);
-        }
-
-        public T CreateView<T>(T prefab, Transform parent = null, Action<T> callback = null) where T : ViewBase
-        {
-            var view = GameObject.Instantiate<T>(prefab);
+            var prefab = GetPrefabFromResources<T>(prefabPath);
+            
+            var view = GameObject.Instantiate(prefab);
             view.gameObject.name = prefab.gameObject.name;
             view.SetActive(false);
-            view.transform.SetParent(parent != null ? parent : _rootUI.GetCanvasLayer(RootUI.CanvasLayer.Overlay), false);
+            view.transform.SetParent(parent != null ? parent : _mainUI.GetCanvasLayer(MainUI.CanvasLayer.Overlay), false);
             view.transform.localScale = prefab.transform.localScale;
             
             callback?.Invoke(view);
             return view;
+        }
+
+        private T GetPrefabFromResources<T>(string prefabPath) where T : ViewBase
+        {
+            ResourceRequest loadRequest = Resources.LoadAsync<T>(prefabPath);
+            var prefab = loadRequest.asset as T;
+            if (prefab == null)
+            {
+                string message = $"Unable to find asset {prefabPath} of type {typeof(T)}";
+                throw new UnityException(message);
+            }
+
+            return prefab;
         }
     }
 }

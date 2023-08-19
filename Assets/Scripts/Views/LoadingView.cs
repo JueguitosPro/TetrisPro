@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace JueguitosPro.Views
 {
-    public class LoginView : ViewBase
+    public class LoadingView : ViewBase
     {
         [SerializeField] private Button _googleLoginButton;
         [SerializeField] private TextMeshProUGUI _developerText;
@@ -13,10 +13,16 @@ namespace JueguitosPro.Views
 
         public event Action OnLoginWithGoogleClicked;
 
-        public override void Open(Action opened = null)
+        public override void Show(Action onShow = null)
         {
             SetActive(true);
-            opened?.Invoke();
+            onShow?.Invoke();
+        }
+
+        public override void Hide(Action onHide = null)
+        {
+            SetActive(false);
+            onHide?.Invoke();
         }
 
         private void OnClickGoogleLogin()

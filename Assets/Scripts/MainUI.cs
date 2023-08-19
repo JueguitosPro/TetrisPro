@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace JueguitosPro
 {
-    public class RootUI : MonoBehaviour
+    public class MainUI : MonoBehaviour
     {
         [SerializeField] private RectTransform overlayCanvas;
         [SerializeField] private RectTransform debugCanvas;

@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 882401231338198170}
   - component: {fileID: 2116497871366076230}
   m_Layer: 5
-  m_Name: LoginView
+  m_Name: LoadingView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
