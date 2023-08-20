@@ -307,15 +307,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 4e-45
+      e01: 0
+      e02: -2.032906e-19
+      e03: -2.032906e-19
+      e10: 0
+      e11: 0
+      e12: 1.009e-42
+      e13: 1.009e-42
+      e20: 5.2009503e-14
+      e21: -1.594556e+15
+      e22: 4.7666655e-19
+      e23: 4.6861715e-10
+      e30: 4.5904e-41
+      e31: 1.012e-42
+      e32: 1.01e-42
+      e33: 1.013e-42
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -510,6 +534,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1481005111}
   - component: {fileID: 1481005110}
+  - component: {fileID: 1481005112}
+  - component: {fileID: 1481005113}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -545,6 +571,48 @@ Transform:
   - {fileID: 110152944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1481005112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481005109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b03f6d55892a8c49beb014e57fd0a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 110152946}
+  activePiece: {fileID: 1481005113}
+  tetrisData:
+  - tetrisLetter: 0
+    tile: {fileID: 11400000, guid: a8ce629b67fd7e54b974ef7b03955e6b, type: 2}
+  - tetrisLetter: 1
+    tile: {fileID: 11400000, guid: e0a34671001b9dd4183d237fcffaaed5, type: 2}
+  - tetrisLetter: 2
+    tile: {fileID: 11400000, guid: c13adda9e3127e346b4c32b00bd12ad8, type: 2}
+  - tetrisLetter: 3
+    tile: {fileID: 11400000, guid: 94db03e8f27cac643b3700c3c6a2d2fe, type: 2}
+  - tetrisLetter: 4
+    tile: {fileID: 11400000, guid: e973a11bff32c1247a0214cf2dd458e4, type: 2}
+  - tetrisLetter: 5
+    tile: {fileID: 11400000, guid: 053bf3ab41162e84db96885dc18c155f, type: 2}
+  - tetrisLetter: 6
+    tile: {fileID: 11400000, guid: 4d6d9a9385f21d148a21caaccd36b6b6, type: 2}
+  spawnPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &1481005113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481005109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76e143f90b6aa24bb16be59ca9b81d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2012166006
 GameObject:
   m_ObjectHideFlags: 0

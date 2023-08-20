@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,56 @@ namespace JueguitosPro
             {
                 cells[i] = (Vector3Int)tetrisData.cells[i];
             }
+        }
+
+        private void Update()
+        {
+            board.Clear(this);
             
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Move(Vector2Int.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Move(Vector2Int.right);
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Move(Vector2Int.down);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                HardDrop();
+            }
+            
+            board.Set(this);
+        }
+
+        private void HardDrop()
+        {
+            while (Move(Vector2Int.down))
+            {
+                continue;
+            }
+        }
+
+        private bool Move(Vector2Int direction)
+        {
+            Vector3Int newPos = position;
+            newPos.x += direction.x;
+            newPos.y += direction.y;
+
+            bool isValid = board.isValidPosition(this, newPos);
+
+            if (isValid)
+            {
+                position = newPos;
+            }
+
+            return isValid;
         }
     }
 }
