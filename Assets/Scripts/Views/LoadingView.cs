@@ -1,15 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace JueguitosPro.Views
 {
     public class LoadingView : ViewBase
     {
-        [SerializeField] private Button _googleLoginButton;
-        [SerializeField] private TextMeshProUGUI _developerText;
-        [SerializeField] private Image _progressBar;
+        [SerializeField] private Button googleLoginButton;
+        [SerializeField] private TextMeshProUGUI developerText;
+        [SerializeField] private Image progressBar;
 
         public event Action OnLoginWithGoogleClicked;
 
@@ -32,13 +33,13 @@ namespace JueguitosPro.Views
 
         public void SetDeveloperText(string message, Color textColor)
         {
-            _developerText.SetText(message);
-            _developerText.color = textColor;
+            developerText.SetText(message);
+            developerText.color = textColor;
         }
 
         public void SetProgressBarProgress(float progress)
         {
-            _progressBar.fillAmount = progress;
+            progressBar.fillAmount = progress;
         }
     }
 }

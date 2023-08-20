@@ -6,40 +6,40 @@ namespace JueguitosPro
 {
     public class GameStateManager
     {
-        private Stack<IGameState> _gameStates = new();
+        private Stack<IGameState> gameStates = new();
 
         public void AddState<T>(T gameState, Action activated = null) where T : GameStateBase
         {
-            if (_gameStates.Count > 0)
+            if (gameStates.Count > 0)
             {
-                IGameState currentGameState = _gameStates.Peek();
+                IGameState currentGameState = gameStates.Peek();
                 // We did not remove anything maybe we need an Disable event
             }
-            _gameStates.Push(gameState);
+            gameStates.Push(gameState);
             gameState.OnCreate();
             gameState.OnActivate(activated);
         }
 
         public void PopState(Action deactivated = null)
         {
-            if (_gameStates.Count > 0)
+            if (gameStates.Count > 0)
             {
-                IGameState gameState = _gameStates.Pop();
+                IGameState gameState = gameStates.Pop();
                 
                 gameState.OnRemove();
             }
 
-            if (_gameStates.Count > 0)
+            if (gameStates.Count > 0)
             {
-                IGameState currentGameState = _gameStates.Peek();
+                IGameState currentGameState = gameStates.Peek();
             }
         }
 
         public void PopAllStates()
         {
-            while (_gameStates.Count > 0)
+            while (gameStates.Count > 0)
             {
-                IGameState gameState = _gameStates.Pop();
+                IGameState gameState = gameStates.Pop();
                 gameState.OnRemove();
             }
         }

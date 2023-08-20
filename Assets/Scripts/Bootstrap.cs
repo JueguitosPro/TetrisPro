@@ -21,7 +21,7 @@ namespace JueguitosPro
             
             GameManager.Instance.GameStateManager.AddState(new GameStateLogin()
             {
-                PrefabPath = AssetPaths.LoadingView
+                PrefabPath = Constants.LoadingView
             });
         }
     }

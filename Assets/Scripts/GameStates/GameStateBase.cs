@@ -7,20 +7,20 @@ namespace JueguitosPro.GameStates
     {
         public string PrefabPath;
 
-        private ViewBase _viewBase;
+        private ViewBase viewBase;
 
         public void InstantiateView<T>(MainUI.CanvasLayer canvasLayer, Action<T> callback) where T : ViewBase
         {
-            _viewBase = GameManager.Instance.ViewManager.InstantiateView<T>(PrefabPath, canvasLayer, callback);
+            viewBase = GameManager.Instance.ViewManager.InstantiateView<T>(PrefabPath, canvasLayer, callback);
         }
 
         public abstract void OnCreate();
 
         public virtual void OnActivate(Action activated = null)
         {
-            if (_viewBase != null)
+            if (viewBase != null)
             {
-                _viewBase.Show(activated);
+                viewBase.Show(activated);
             }
             else
             {
@@ -30,9 +30,9 @@ namespace JueguitosPro.GameStates
 
         public virtual void OnDeactivate(Action deactivated = null)
         {
-            if (_viewBase != null)
+            if (viewBase != null)
             {
-                _viewBase.Hide(deactivated);
+                viewBase.Hide(deactivated);
             }
             else
             {
@@ -42,7 +42,7 @@ namespace JueguitosPro.GameStates
 
         public virtual void OnRemove()
         {
-            _viewBase.Destroy();
+            viewBase.Destroy();
         }
     }
 }
