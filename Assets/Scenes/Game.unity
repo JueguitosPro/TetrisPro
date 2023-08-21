@@ -600,7 +600,8 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: 053bf3ab41162e84db96885dc18c155f, type: 2}
   - tetrisLetter: 6
     tile: {fileID: 11400000, guid: 4d6d9a9385f21d148a21caaccd36b6b6, type: 2}
-  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnPosition: {x: -1, y: 8, z: 0}
+  boardSize: {x: 11, y: 20}
 --- !u!114 &1481005113
 MonoBehaviour:
   m_ObjectHideFlags: 0
