@@ -14,6 +14,12 @@ namespace JueguitosPro
         public TetrisData tetrisData { get; private set; }
         public Vector3Int[] cells { get; private set; }
         public int rotationIndex { get; private set; }
+
+        public float stepDelay = 1f;
+        public float lockDelay = 0.5f;
+
+        private float stepTime;
+        private float lockTime;
         
         public void Initialize(Board board, Vector3Int position, TetrisData tetrisData)
         {
@@ -21,6 +27,9 @@ namespace JueguitosPro
             this.position = position;
             this.tetrisData = tetrisData;
             rotationIndex = 0;
+
+            stepTime = Time.time + stepDelay;
+            lockTime = 0f;
 
             if (cells == null)
             {
@@ -36,6 +45,8 @@ namespace JueguitosPro
         private void Update()
         {
             board.Clear(this);
+
+            lockTime += Time.deltaTime;
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -64,8 +75,30 @@ namespace JueguitosPro
             {
                 HardDrop();
             }
+
+            if (Time.time >= stepTime)
+            {
+                Step();
+            }
             
             board.Set(this);
+        }
+
+        private void Step()
+        {
+            stepTime = Time.time + stepDelay;
+            Move(Vector2Int.down);
+            if (lockTime >= lockDelay)
+            {
+                Lock();
+            }
+        }
+
+        private void Lock()
+        {
+            board.Set(this);
+            board.ClearLines();
+            board.SpawnPiece();
         }
 
         private void HardDrop()
@@ -74,6 +107,8 @@ namespace JueguitosPro
             {
                 continue;
             }
+
+            Lock();
         }
 
         private bool Move(Vector2Int direction)
@@ -87,6 +122,7 @@ namespace JueguitosPro
             if (isValid)
             {
                 position = newPos;
+                lockTime = 0f;
             }
 
             return isValid;
@@ -94,8 +130,21 @@ namespace JueguitosPro
 
         private void Rotate(int direction)
         {
+            int originalRotationIndex = rotationIndex;
             rotationIndex += Wrap(rotationIndex + direction, 0,4);
 
+            ApplyRotationMatrix(direction);
+
+            if (!TestWallKicks(rotationIndex, direction))
+            {
+                rotationIndex = originalRotationIndex;
+                ApplyRotationMatrix(-direction);
+            } 
+            
+        }
+
+        private void ApplyRotationMatrix(int direction)
+        {
             for (int i = 0; i < cells.Length; i++)
             {
                 // Not use Int beacuse the I and O needs to has an offset of half unit (0.5)
@@ -120,7 +169,6 @@ namespace JueguitosPro
 
                 cells[i] = new Vector3Int(x, y, 0);
             }
-            
         }
 
         private int Wrap(int input, int min, int max)
@@ -133,5 +181,35 @@ namespace JueguitosPro
             return min + (input - min) % (max - min);
         }
 
+        private bool TestWallKicks(int rotationIndex, int rotationDirection)
+        {
+            int wallKickIndex = GetWallKickIndex(rotationIndex, rotationDirection);
+
+            for (int i = 0; i < tetrisData.wallKicks.GetLength(1); i++)
+            {
+                Vector2Int translation = tetrisData.wallKicks[wallKickIndex, i];
+                
+                if (Move(translation))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+        private int GetWallKickIndex(int rotationIndex, int rotationDirection)
+        {
+            int wallKickIndex = rotationIndex * 2;
+
+            if (rotationDirection < 0)
+            {
+                wallKickIndex--;
+            }
+
+            return Wrap(wallKickIndex, 0, tetrisData.wallKicks.GetLength(0));
+        }
+        
     }
 }

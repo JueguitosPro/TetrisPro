@@ -45,7 +45,21 @@ namespace JueguitosPro
             TetrisData data = tetrisData[random];
             
             activePiece.Initialize(this, spawnPosition, data);
-            Set(activePiece);
+
+            if (isValidPosition(activePiece, spawnPosition))
+            {
+                Set(activePiece);
+            }
+            else
+            {
+                GameOver();
+            }
+        }
+
+        private void GameOver()
+        {
+            Debug.LogError("GAME OVER");
+            tilemap.ClearAllTiles();
         }
 
         public void Set(Piece piece)
@@ -87,6 +101,61 @@ namespace JueguitosPro
 
             return true;
         }
-        
+
+        public void ClearLines()
+        {
+            int row = bounds.yMin;
+
+            // if the line is full we need to re test the line because all the above lines will fall down
+            while (row < bounds.yMax)
+            {
+                if (IsLineFull(row))
+                {
+                    LineClear(row);
+                }
+                else
+                {
+                    row++;
+                }
+            }
+            
+        }
+
+        private bool IsLineFull(int row)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row, 0);
+                if (!tilemap.HasTile(position))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void LineClear(int row)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row, 0);
+                tilemap.SetTile(position, null);
+            }
+
+            while (row < bounds.yMax)
+            {
+                for (int col = bounds.xMin; col < bounds.xMax; col++)
+                {
+                    Vector3Int position = new Vector3Int(col, row + 1, 0);
+                    TileBase above = tilemap.GetTile(position);
+            
+                    position = new Vector3Int(col, row, 0);
+                    tilemap.SetTile(position, above);
+                }
+            
+                row++;
+            }
+        }
     }
 }
