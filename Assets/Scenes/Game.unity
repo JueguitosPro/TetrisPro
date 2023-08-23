@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328757942}
   - component: {fileID: 328757941}
+  - component: {fileID: 328757943}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -404,6 +405,21 @@ Transform:
   - {fileID: 486687508}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &328757943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328757940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a11109fda2ce024baac5c73445f93c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 11400000, guid: 963ae7e8cd38a5a47b46bde6ac8543e4, type: 2}
+  board: {fileID: 1481005112}
+  trackingPiece: {fileID: 1481005113}
 --- !u!1 &486687507
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +617,7 @@ MonoBehaviour:
   - tetrisLetter: 6
     tile: {fileID: 11400000, guid: 4d6d9a9385f21d148a21caaccd36b6b6, type: 2}
   spawnPosition: {x: -1, y: 8, z: 0}
-  boardSize: {x: 11, y: 20}
+  boardSize: {x: 10, y: 20}
 --- !u!114 &1481005113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76e143f90b6aa24bb16be59ca9b81d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepDelay: 1
+  lockDelay: 0.5
 --- !u!1 &2012166006
 GameObject:
   m_ObjectHideFlags: 0

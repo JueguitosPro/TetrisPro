@@ -14,9 +14,8 @@ namespace JueguitosPro
         [SerializeField] private Piece activePiece;
         [SerializeField] private TetrisData[] tetrisData;
         [SerializeField] private Vector3Int spawnPosition;
-        [SerializeField] private Vector2Int boardSize = new Vector2Int(10, 20);
-
-
+        public Vector2Int boardSize = new Vector2Int(10, 20);
+        
         public RectInt bounds
         {
             get
