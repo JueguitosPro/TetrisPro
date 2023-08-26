@@ -23,12 +23,14 @@ namespace JueguitosPro.Controllers
 
         private void OkButtonClicked()
         {
-            view.Hide(okButtonCallback);
+            view.Destroy();
+            okButtonCallback?.Invoke();
         }
 
         private void CancelButtonClicked()
         {
-            view.Hide(cancelButtonCallback);
+            view.Destroy();
+            cancelButtonCallback?.Invoke();
         }
     }
 }

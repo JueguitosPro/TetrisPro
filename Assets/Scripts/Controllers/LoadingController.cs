@@ -15,7 +15,7 @@ namespace JueguitosPro.Controllers
         {
             SetLoadingProgress(0.4f, () =>
             {
-                model.PlayGoogleGamesAuthentication(AuthenticationCallback);
+                model.PlayGamesAuthentication(AuthenticationCallback);
             });
 
         }
@@ -31,18 +31,27 @@ namespace JueguitosPro.Controllers
             {
                 if (success)
                 {
-                    // Go to MainMenu
+                    GameManager.Instance.GameStateManager.PopAllStates();
+                    GameManager.Instance.GameStateManager.AddState(new GameStateMainMenu
+                    {
+                        PrefabPath = Constants.MainMenuView
+                    });
                 }
                 else
                 {
                     GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
                     {
                         PrefabPath = Constants.PopUpView,
+                        allowOverlaping = true,
                         popUpMessage =
                             $"If you want to use all game's features we recommend to login with Google Play Games.",
                         okButtonCallback = () =>
                         {
-                            // Go to MainMenu
+                            GameManager.Instance.GameStateManager.PopAllStates();
+                            GameManager.Instance.GameStateManager.AddState(new GameStateMainMenu
+                            {
+                                PrefabPath = Constants.MainMenuView
+                            });
                         }
                     });
                 }

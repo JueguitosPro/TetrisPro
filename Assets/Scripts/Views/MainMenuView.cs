@@ -1,6 +1,7 @@
 using System;
 using JueguitosPro.Views;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace JueguitosPro
@@ -9,7 +10,7 @@ namespace JueguitosPro
     {
         [SerializeField] private Button playGameButton;
         [SerializeField] private Button settingsButton;
-        [SerializeField] private Button loginWithGoogleButton;
+        [SerializeField] private Button playGamesLoginButton;
 
         public event Action onPlayGameButtonClicked;
         public event Action onSettingsButtonClicked;
@@ -20,7 +21,7 @@ namespace JueguitosPro
             base.Show(onShow);
             playGameButton.onClick.AddListener(OnPlayGameButtonClicked);
             settingsButton.onClick.AddListener(OnSettingsButtonClicked);
-            loginWithGoogleButton.onClick.AddListener(OnLoginWithGoogleButtonClicked);
+            playGamesLoginButton.onClick.AddListener(OnLoginWithGoogleButtonClicked);
         }
 
         public override void Hide(Action onHide = null)
@@ -28,7 +29,12 @@ namespace JueguitosPro
             base.Hide(onHide);
             playGameButton.onClick.RemoveListener(OnPlayGameButtonClicked);
             settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
-            loginWithGoogleButton.onClick.RemoveListener(OnLoginWithGoogleButtonClicked);
+            playGamesLoginButton.onClick.RemoveListener(OnLoginWithGoogleButtonClicked);
+        }
+
+        public void AllowPlayGamesLogin(bool enableLogin)
+        {
+            playGamesLoginButton.gameObject.SetActive(enableLogin);
         }
 
         private void OnPlayGameButtonClicked()

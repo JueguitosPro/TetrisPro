@@ -10,10 +10,10 @@ namespace JueguitosPro
 
         public void AddState<T>(T gameState, Action activated = null) where T : GameStateBase
         {
-            if (gameStates.Count > 0)
+            if (gameStates.Count > 0 && !gameState.allowOverlaping)
             {
                 IGameState currentGameState = gameStates.Peek();
-                // We did not remove anything maybe we need an Disable event
+                currentGameState.OnDeactivate();
             }
             gameStates.Push(gameState);
             gameState.OnCreate(()=>gameState.OnActivate(activated));

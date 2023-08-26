@@ -17,11 +17,15 @@ namespace JueguitosPro.Views
         public override void Show(Action onShow = null)
         {
             base.Show(onShow);
+            okButton.onClick.AddListener(OnOkButtonClicked);
+            cancelButton.onClick.AddListener(OnCancelButtonClicked);
         }
 
         public override void Hide(Action onHide = null)
         {
             base.Hide(onHide);
+            okButton.onClick.RemoveAllListeners();
+            cancelButton.onClick.RemoveAllListeners();
         }
 
         private void OnOkButtonClicked()
@@ -41,7 +45,7 @@ namespace JueguitosPro.Views
 
         public void InitButtons(bool showOkButton, bool showCancelButton)
         {
-            okButton.gameObject.SetActive(showOkButton);
+            okButton.gameObject.SetActive(!showOkButton && !showCancelButton || showOkButton);
             cancelButton.gameObject.SetActive(showCancelButton);
         }
     }

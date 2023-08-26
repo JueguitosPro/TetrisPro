@@ -6,12 +6,9 @@ namespace JueguitosPro.Models
 {
     public class LoadingModel : ModelBase
     {
-        public void PlayGoogleGamesAuthentication(Action<bool> authenticateCallback)
+        public void PlayGamesAuthentication(Action<bool> authenticationCallback)
         {
-            PlayGamesPlatform.Instance.Authenticate(status =>
-            {
-                authenticateCallback?.Invoke(status == SignInStatus.Success);
-            });
+            GooglePlayGamesWrapper.GooglePlayGamesAuthentication(authenticationCallback);
         }
     }
 }

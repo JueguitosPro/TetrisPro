@@ -1,3 +1,4 @@
+using JueguitosPro.GameStates;
 using JueguitosPro.Models;
 
 namespace JueguitosPro.Controllers
@@ -9,21 +10,35 @@ namespace JueguitosPro.Controllers
             view.onPlayGameButtonClicked += PlayGameClicked;
             view.onSettingsButtonClicked += SettingsClicked;
             view.onLoginWithGoogleButtonClicked += LoginWithGoogleClicked;
+            
+            view.AllowPlayGamesLogin(!model.IsAuthenticated);
         }
 
         private void LoginWithGoogleClicked()
         {
-            throw new System.NotImplementedException();
+            model.PlayGamesAuthentication(AuthenticationCallback);
         }
 
         private void SettingsClicked()
         {
-            throw new System.NotImplementedException();
+            // Open settings view
         }
 
         private void PlayGameClicked()
         {
-            throw new System.NotImplementedException();
+            // Go to game screen
+        }
+
+        private void AuthenticationCallback(bool success)
+        {
+            GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
+            {
+                PrefabPath = Constants.PopUpView,
+                allowOverlaping = true,
+                popUpMessage = success ? 
+                    $"Thank you! You can enjoy leaderboards and achievements now." : 
+                    $"Make sure you have an account in Google Play Games and try again."
+            });
         }
     }
 }
