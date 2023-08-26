@@ -1,8 +1,7 @@
-using System;
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 using UnityEngine;
 using JueguitosPro.Views;
+using Object = UnityEngine.Object;
 
 namespace JueguitosPro
 {
@@ -32,7 +31,7 @@ namespace JueguitosPro
 
         private async UniTask<T> GetPrefabFromResources<T>(string prefabPath) where T : ViewBase
         {
-            var loadRequest = await Resources.LoadAsync<T>(prefabPath);
+            Object loadRequest = await Resources.LoadAsync<T>(prefabPath);
             var prefab = loadRequest as T;
             if (prefab == null)
             {
