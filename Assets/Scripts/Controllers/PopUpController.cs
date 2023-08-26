@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
-using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {

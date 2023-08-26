@@ -1,9 +1,7 @@
 using System;
-using Cysharp.Threading.Tasks.Triggers;
 using JueguitosPro.GameStates;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
-using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
