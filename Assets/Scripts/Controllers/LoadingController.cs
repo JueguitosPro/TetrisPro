@@ -1,4 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks.Triggers;
+using JueguitosPro.GameStates;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
 using UnityEngine;
@@ -9,34 +11,44 @@ namespace JueguitosPro.Controllers
     {
         public LoadingController(LoadingModel model, LoadingView view) : base(model, view)
         {
-            view.SetActive(true);
         }
         
         public void Authenticate()
         {
-            // model.PlayGoogleGamesAuthentication(AuthenticationCallback);
-            SetLoadingProgress(0.4f);
-            SetLoadingProgress(.8f);
-            SetLoadingProgress(1f);
+            SetLoadingProgress(0.4f, () =>
+            {
+                model.PlayGoogleGamesAuthentication(AuthenticationCallback);
+            });
+
         }
 
-        private void SetLoadingProgress(float progress)
+        private void SetLoadingProgress(float progress, Action eventCallback = null)
         {
-            view.RegisterProgressEvent(progress, 2f);
+            view.RegisterProgressEvent(progress, 1f, eventCallback);
         }
 
         private void AuthenticationCallback(bool success)
         {
-            if (success)
+            SetLoadingProgress(1f, () =>
             {
-                Debug.Log("Successful Login");
-                SetLoadingProgress(.4f);
-                SetLoadingProgress(.2f);
-            }
-            else
-            {
-                
-            }
+                if (success)
+                {
+                    // Go to MainMenu
+                }
+                else
+                {
+                    GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
+                    {
+                        PrefabPath = Constants.PopUpView,
+                        popUpMessage =
+                            $"If you want to use all game's features we recommend to login with Google Play Games.",
+                        okButtonCallback = () =>
+                        {
+                            // Go to MainMenu
+                        }
+                    });
+                }
+            });
         }
     }
 }

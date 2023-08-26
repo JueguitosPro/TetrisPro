@@ -11,7 +11,9 @@ namespace JueguitosPro.Views
     {
         public float Progress { get; set; }
         public float Duration { get; set; }
+        public Action EventCallback { get; set; }
     }
+    
     public class LoadingView : ViewBase
     {
         [SerializeField] private Image progressBar;
@@ -23,8 +25,7 @@ namespace JueguitosPro.Views
         {
             if (progressEvents.Count > 0 && !isTweening)
             {
-                ProgressEvent progressEvent = progressEvents.Dequeue();
-                SetProgressBarProgress(progressEvent.Progress, progressEvent.Duration);
+                SetProgressBarProgress(progressEvents.Dequeue());
             }
         }
 
@@ -41,16 +42,21 @@ namespace JueguitosPro.Views
             onHide?.Invoke();
         }
 
-        public void RegisterProgressEvent(float progress, float duration)
+        public void RegisterProgressEvent(float progress, float duration, Action eventCallback = null)
         {
-            ProgressEvent progressEvent = new ProgressEvent() { Progress = progress, Duration = duration };
+            ProgressEvent progressEvent = new ProgressEvent() { Progress = progress, Duration = duration, EventCallback = eventCallback};
             progressEvents.Enqueue(progressEvent);
         }
 
-        private void SetProgressBarProgress(float progress, float duration)
+        private void SetProgressBarProgress(ProgressEvent progressEvent)
         {
             isTweening = true;
-            progressBar.DOFillAmount(progress, 1 * duration).OnComplete(() => { isTweening = false;});
+            progressBar.DOFillAmount(progressEvent.Progress, 1 * progressEvent.Duration).
+                OnComplete(() =>
+                {
+                    isTweening = false;
+                    progressEvent.EventCallback?.Invoke();
+                });
         }
     }
 }

@@ -15,6 +15,7 @@ namespace JueguitosPro
         // Prefabs Path
         
         public static readonly string LoadingView = "UI/Views/LoadingView";
+        public static readonly string PopUpView = "UI/Views/PopUpView";
 
     }
 }

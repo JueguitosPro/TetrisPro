@@ -20,7 +20,7 @@ namespace JueguitosPro
         {
             GameManager.Instance = new GameManager();
 
-            GameManager.Instance.GameStateManager.AddState(new GameStateLoading()
+            GameManager.Instance.GameStateManager.AddState(new GameStateLoading
             {
                 PrefabPath = Constants.LoadingView
             });
