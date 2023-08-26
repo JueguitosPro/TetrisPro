@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GooglePlayGames;
 using JueguitosPro.GameStates;
 using UnityEngine;
@@ -15,11 +16,11 @@ namespace JueguitosPro
             PlayGamesPlatform.Activate();
         }
 
-        void Start()
+        private void Start()
         {
             GameManager.Instance = new GameManager();
-            
-            GameManager.Instance.GameStateManager.AddState(new GameStateLogin()
+
+            GameManager.Instance.GameStateManager.AddState(new GameStateLoading()
             {
                 PrefabPath = Constants.LoadingView
             });

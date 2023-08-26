@@ -16,8 +16,7 @@ namespace JueguitosPro
                 // We did not remove anything maybe we need an Disable event
             }
             gameStates.Push(gameState);
-            gameState.OnCreate();
-            gameState.OnActivate(activated);
+            gameState.OnCreate(()=>gameState.OnActivate(activated));
         }
 
         public void PopState(Action deactivated = null)
@@ -32,6 +31,7 @@ namespace JueguitosPro
             if (gameStates.Count > 0)
             {
                 IGameState currentGameState = gameStates.Peek();
+                currentGameState.OnActivate();
             }
         }
 

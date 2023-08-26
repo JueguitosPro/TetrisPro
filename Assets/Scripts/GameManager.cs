@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace JueguitosPro
 {
     public class GameManager

@@ -1,19 +1,16 @@
 using System;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 
 namespace JueguitosPro.Models
 {
     public class LoadingModel : ModelBase
     {
-        public event Action onSuccess;
-        public event Action<string> onFailure;
-        public void LoginWithGoogle()
+        public void PlayGoogleGamesAuthentication(Action<bool> authenticateCallback)
         {
-            PlayfabWrapper.LoginWithGoogle(result =>
+            PlayGamesPlatform.Instance.Authenticate(status =>
             {
-                onSuccess?.Invoke();
-            }, error =>
-            {
-                onFailure?.Invoke(error);
+                authenticateCallback?.Invoke(status == SignInStatus.Success);
             });
         }
     }
