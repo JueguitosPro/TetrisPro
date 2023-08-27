@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -19,6 +16,7 @@ namespace JueguitosPro
         private void Awake()
         {
             tilemap = GetComponentInChildren<Tilemap>();
+            
             // 4 is because the piece has 4 squares
             cells = new Vector3Int[4];
             

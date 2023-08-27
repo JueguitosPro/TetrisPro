@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace JueguitosPro
@@ -9,6 +5,7 @@ namespace JueguitosPro
     // Use to controls 
     public class Piece : MonoBehaviour
     {
+        private static readonly float PIECE_OFFSET = 0.5f;
         public Board board { get; private set; }
         public Vector3Int position { get; private set; }
         public TetrisData tetrisData { get; private set; }
@@ -48,6 +45,7 @@ namespace JueguitosPro
 
             lockTime += Time.deltaTime;
 
+            //TODO: The inputs will be refactor in the next PR, this is only for base game
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Rotate(-1);
@@ -131,11 +129,13 @@ namespace JueguitosPro
         private void Rotate(int direction)
         {
             int originalRotationIndex = rotationIndex;
-            rotationIndex += Wrap(rotationIndex + direction, 0,4);
+            
+            // The piece rotation only has 4 different positions https://tetris.fandom.com/wiki/SRS
+            rotationIndex += Wrap(rotationIndex + direction,0, 4);
 
             ApplyRotationMatrix(direction);
 
-            if (!TestWallKicks(rotationIndex, direction))
+            if (!CheckWallKicks())
             {
                 rotationIndex = originalRotationIndex;
                 ApplyRotationMatrix(-direction);
@@ -147,7 +147,7 @@ namespace JueguitosPro
         {
             for (int i = 0; i < cells.Length; i++)
             {
-                // Not use Int beacuse the I and O needs to has an offset of half unit (0.5)
+                // Not use Vector3Int because the I and O needs to has an offset of half unit (0.5)
                 Vector3 cell = cells[i];
                 int x;
                 int y;
@@ -156,8 +156,10 @@ namespace JueguitosPro
                 {
                     case TetrisLetters.I:
                     case TetrisLetters.O:
-                        cell.x -= 0.5f;
-                        cell.y -= 0.5f;
+                        cell.x -= PIECE_OFFSET;
+                        cell.y -= PIECE_OFFSET;
+                        
+                        // Use Ceil to rounds upwards instead of the near integer
                         x = Mathf.CeilToInt((cell.x * Data.RotationMatrix[0] * direction) + (cell.y * Data.RotationMatrix[1] * direction));
                         y = Mathf.CeilToInt((cell.x * Data.RotationMatrix[2] * direction) + (cell.y * Data.RotationMatrix[3] * direction));
                         break;
@@ -181,35 +183,26 @@ namespace JueguitosPro
             return min + (input - min) % (max - min);
         }
 
-        private bool TestWallKicks(int rotationIndex, int rotationDirection)
+        /// <summary>
+        /// This method check if the piece collide with a wall/other piece and move the piece in the direction that doesnt collide with other thing
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckWallKicks()
         {
-            int wallKickIndex = GetWallKickIndex(rotationIndex, rotationDirection);
-
-            for (int i = 0; i < tetrisData.wallKicks.GetLength(1); i++)
+            for (int wallKickIndex = 0; wallKickIndex < tetrisData.wallKicks.Length; wallKickIndex++)
             {
-                Vector2Int translation = tetrisData.wallKicks[wallKickIndex, i];
-                
-                if (Move(translation))
+                for (int i = 0; i < tetrisData.wallKicks.GetLength(1); i++)
                 {
-                    return true;
+                    Vector2Int translation = tetrisData.wallKicks[wallKickIndex, i];
+                    if (Move(translation))
+                    {
+                        return true;
+                    }
                 }
             }
 
             return false;
 
         }
-
-        private int GetWallKickIndex(int rotationIndex, int rotationDirection)
-        {
-            int wallKickIndex = rotationIndex * 2;
-
-            if (rotationDirection < 0)
-            {
-                wallKickIndex--;
-            }
-
-            return Wrap(wallKickIndex, 0, tetrisData.wallKicks.GetLength(0));
-        }
-        
     }
 }

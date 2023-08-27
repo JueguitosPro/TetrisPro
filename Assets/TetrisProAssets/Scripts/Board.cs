@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -57,6 +54,7 @@ namespace JueguitosPro
 
         private void GameOver()
         {
+            // TODO: Implement the game over
             Debug.LogError("GAME OVER");
             tilemap.ClearAllTiles();
         }
