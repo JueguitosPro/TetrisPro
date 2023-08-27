@@ -12,8 +12,8 @@ namespace JueguitosPro.GameStates
             InstantiateView<LoadingView>(MainUI.CanvasLayer.Overlay, view =>
             {
                 onCreated?.Invoke();
-                var model = new LoadingModel();
-                var controller = new LoadingController(model, view);
+                LoadingModel model = new LoadingModel();
+                LoadingController controller = new LoadingController(model, view);
                 controller.Authenticate();
             } );
         }

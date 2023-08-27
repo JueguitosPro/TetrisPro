@@ -7,6 +7,7 @@ namespace JueguitosPro.GameStates
     public abstract class GameStateBase : IGameState
     {
         public string PrefabPath;
+        public bool allowOverlaping;
 
         private ViewBase viewBase;
 
