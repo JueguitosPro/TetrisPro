@@ -1,22 +1,37 @@
 using System;
-using TMPro;
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace JueguitosPro.Views
 {
+    public class ProgressEvent
+    {
+        public float Progress { get; set; }
+        public float Duration { get; set; }
+        public Action EventCallback { get; set; }
+    }
+    
     public class LoadingView : ViewBase
     {
-        [SerializeField] private Button googleLoginButton;
-        [SerializeField] private TextMeshProUGUI developerText;
         [SerializeField] private Image progressBar;
 
-        public event Action OnLoginWithGoogleClicked;
+        private Queue<ProgressEvent> progressEvents;
+        private bool isTweening;
+
+        private void Update()
+        {
+            if (progressEvents.Count > 0 && !isTweening)
+            {
+                SetProgressBarProgress(progressEvents.Dequeue());
+            }
+        }
 
         public override void Show(Action onShow = null)
         {
             SetActive(true);
+            progressEvents = new Queue<ProgressEvent>();
             onShow?.Invoke();
         }
 
@@ -26,20 +41,21 @@ namespace JueguitosPro.Views
             onHide?.Invoke();
         }
 
-        private void OnClickGoogleLogin()
+        public void RegisterProgressEvent(float progress, float duration, Action eventCallback = null)
         {
-            OnLoginWithGoogleClicked?.Invoke();
+            ProgressEvent progressEvent = new ProgressEvent() { Progress = progress, Duration = duration, EventCallback = eventCallback};
+            progressEvents.Enqueue(progressEvent);
         }
 
-        public void SetDeveloperText(string message, Color textColor)
+        private void SetProgressBarProgress(ProgressEvent progressEvent)
         {
-            developerText.SetText(message);
-            developerText.color = textColor;
-        }
-
-        public void SetProgressBarProgress(float progress)
-        {
-            progressBar.fillAmount = progress;
+            isTweening = true;
+            progressBar.DOFillAmount(progressEvent.Progress, 1 * progressEvent.Duration).
+                OnComplete(() =>
+                {
+                    isTweening = false;
+                    progressEvent.EventCallback?.Invoke();
+                });
         }
     }
 }

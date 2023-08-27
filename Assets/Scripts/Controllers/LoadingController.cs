@@ -1,3 +1,5 @@
+using System;
+using JueguitosPro.GameStates;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
 
@@ -7,26 +9,44 @@ namespace JueguitosPro.Controllers
     {
         public LoadingController(LoadingModel model, LoadingView view) : base(model, view)
         {
-            this.model.onSuccess += LoadingSuccess;
-            this.model.onFailure += LoadingFailure;
+        }
+        
+        public void Authenticate()
+        {
+            SetLoadingProgress(0.4f, () =>
+            {
+                model.PlayGoogleGamesAuthentication(AuthenticationCallback);
+            });
 
-            this.view.OnLoginWithGoogleClicked += LoadingWithGoogle;
         }
 
-        private void LoadingWithGoogle()
+        private void SetLoadingProgress(float progress, Action eventCallback = null)
         {
-            view.SetDeveloperText("Trying to login with google", Constants.ERROR_COLOR);
-            model .LoginWithGoogle();
+            view.RegisterProgressEvent(progress, 1f, eventCallback);
         }
 
-        private void LoadingSuccess()
+        private void AuthenticationCallback(bool success)
         {
-            view.SetDeveloperText("Successful Login", Constants.LOG_COLOR);
-        }
-
-        private void LoadingFailure(string errorMessage)
-        {
-            view.SetDeveloperText(errorMessage, Constants.ERROR_COLOR);
+            SetLoadingProgress(1f, () =>
+            {
+                if (success)
+                {
+                    // Go to MainMenu
+                }
+                else
+                {
+                    GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
+                    {
+                        PrefabPath = Constants.PopUpView,
+                        popUpMessage =
+                            $"If you want to use all game's features we recommend to login with Google Play Games.",
+                        okButtonCallback = () =>
+                        {
+                            // Go to MainMenu
+                        }
+                    });
+                }
+            });
         }
     }
 }

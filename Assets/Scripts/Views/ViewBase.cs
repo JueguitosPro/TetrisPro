@@ -36,7 +36,7 @@ namespace JueguitosPro.Views
                 GameObject.Destroy(gameObject);
             }
         }
-        
+
         public virtual void Show(Action onShow = null)
         {
             if (gameObject.activeInHierarchy)

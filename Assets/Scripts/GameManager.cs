@@ -1,3 +1,4 @@
+
 namespace JueguitosPro
 {
     public class GameManager

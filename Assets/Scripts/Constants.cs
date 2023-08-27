@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace JueguitosPro
@@ -15,6 +13,7 @@ namespace JueguitosPro
         // Prefabs Path
         
         public static readonly string LoadingView = "UI/Views/LoadingView";
+        public static readonly string PopUpView = "UI/Views/PopUpView";
 
     }
 }

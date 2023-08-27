@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using JueguitosPro.Views;
 
 namespace JueguitosPro.GameStates
@@ -9,34 +10,35 @@ namespace JueguitosPro.GameStates
 
         private ViewBase viewBase;
 
-        public void InstantiateView<T>(MainUI.CanvasLayer canvasLayer, Action<T> callback) where T : ViewBase
+        protected async UniTask InstantiateView<T>(MainUI.CanvasLayer canvasLayer, Action<T> callback) where T : ViewBase
         {
-            viewBase = GameManager.Instance.ViewManager.InstantiateView<T>(PrefabPath, canvasLayer, callback);
+            viewBase = await GameManager.Instance.ViewManager.InstantiateView<T>(PrefabPath, canvasLayer);
+            callback?.Invoke((T)viewBase);
         }
 
-        public abstract void OnCreate();
+        public abstract void OnCreate(Action onCreated = null);
 
-        public virtual void OnActivate(Action activated = null)
+        public virtual void OnActivate(Action onActivated = null)
         {
             if (viewBase != null)
             {
-                viewBase.Show(activated);
+                viewBase.Show(onActivated);
             }
             else
             {
-                activated?.Invoke();
+                onActivated?.Invoke();
             }
         }
 
-        public virtual void OnDeactivate(Action deactivated = null)
+        public virtual void OnDeactivate(Action onDeactivated = null)
         {
             if (viewBase != null)
             {
-                viewBase.Hide(deactivated);
+                viewBase.Hide(onDeactivated);
             }
             else
             {
-                deactivated?.Invoke();
+                onDeactivated?.Invoke();
             }
         }
 
