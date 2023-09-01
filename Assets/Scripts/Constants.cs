@@ -10,6 +10,9 @@ namespace JueguitosPro
         public static Color WARNING_COLOR = Color.yellow;
         public static Color LOG_COLOR = Color.white;
         
+        // Data Path
+        public static readonly string DataFile = "GameData.txt";
+        
         // Prefabs Path
         
         public static readonly string LoadingView = "UI/Views/LoadingView";

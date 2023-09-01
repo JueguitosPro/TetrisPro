@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
+using JueguitosPro.Controllers;
+using JueguitosPro.Models;
+using JueguitosPro.Views;
 
 namespace JueguitosPro.GameStates
 {
-    public class GameStateSettings : MonoBehaviour
+    public class GameStateSettings : GameStateBase
     {
-        // Start is called before the first frame update
-        void Start()
+        public override void OnCreate(Action onCreated = null)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            InstantiateView<SettingsView>(MainUI.CanvasLayer.Overlay, view =>
+            {
+                onCreated?.Invoke();
+                SettingsModel model = new SettingsModel();
+                SettingsController controller = new SettingsController(model, view);
+            } );
         }
     }
 }

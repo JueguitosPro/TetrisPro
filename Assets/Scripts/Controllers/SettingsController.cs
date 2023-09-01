@@ -10,6 +10,14 @@ namespace JueguitosPro.Controllers
     {
         public SettingsController(SettingsModel model, SettingsView view) : base(model, view)
         {
+            view.onBackButtonClicked += OnBackButtonClicked;
+            view.SetSettingsData(model.GetSettingsData());
+        }
+
+        private void OnBackButtonClicked(SettingsData settingsData)
+        {
+            model.SaveSettingsData(settingsData);
+            GameManager.Instance.GameStateManager.PopState();
         }
     }
 }

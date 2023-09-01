@@ -27,6 +27,13 @@ namespace JueguitosPro.Views
             backButton.onClick.RemoveListener(OnBackButtonClicked);
         }
 
+        public void SetSettingsData(SettingsData settingsData)
+        {
+            generalVolumeSlider.value = settingsData.GeneralVolume;
+            musicVolumeSlider.value = settingsData.MusicVolume;
+            effectsVolumeSlider.value = settingsData.EffectsVolume;
+        }
+
         private void OnDestroy()
         {
             onBackButtonClicked = null;
