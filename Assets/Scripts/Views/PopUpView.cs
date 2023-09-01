@@ -28,6 +28,12 @@ namespace JueguitosPro.Views
             cancelButton.onClick.RemoveAllListeners();
         }
 
+        private void OnDestroy()
+        {
+            onOkButtonClicked = null;
+            onCancelButtonClicked = null;
+        }
+
         private void OnOkButtonClicked()
         {
             onOkButtonClicked?.Invoke();

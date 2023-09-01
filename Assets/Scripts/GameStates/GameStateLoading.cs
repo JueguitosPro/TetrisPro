@@ -14,7 +14,6 @@ namespace JueguitosPro.GameStates
                 onCreated?.Invoke();
                 LoadingModel model = new LoadingModel();
                 LoadingController controller = new LoadingController(model, view);
-                controller.Authenticate();
             } );
         }
     }
