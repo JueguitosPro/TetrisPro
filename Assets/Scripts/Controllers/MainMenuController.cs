@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using JueguitosPro.GameStates;
 using JueguitosPro.Models;
+using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
@@ -8,6 +10,8 @@ namespace JueguitosPro.Controllers
         public MainMenuController(MainMenuModel model, MainMenuView view) : base(model, view)
         {
             view.onPlayGameButtonClicked += PlayGameClicked;
+            view.onLeaderboardButtonClicked += LeaderboardClicked;
+            view.onSetLeaderboardScoreButtonClicked += SetLeaderboardScoreClicked;
             view.onSettingsButtonClicked += SettingsClicked;
             view.onLoginWithGoogleButtonClicked += LoginWithGoogleClicked;
             
@@ -17,6 +21,44 @@ namespace JueguitosPro.Controllers
         private void LoginWithGoogleClicked()
         {
             model.PlayGamesAuthentication(AuthenticationCallback);
+        }
+
+        private void LeaderboardClicked()
+        {
+            #if UNITY_EDITOR
+            GameManager.Instance.GameStateManager.AddState(new GameStateLeaderboard()
+            {
+                PrefabPath = Constants.LeaderboardView
+            });
+            #else
+            if (model.IsAuthenticated)
+            {
+                GameManager.Instance.GameStateManager.AddState(new GameStateLeaderboard()
+                {
+                    PrefabPath = Constants.LeaderboardView
+                });
+            }
+            else
+            {
+                GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
+                {
+                    PrefabPath = Constants.PopUpView,
+                    allowOverlaping = true,
+                    popUpMessage = $"Please login with Play Games to compete with worldwide players."
+                });
+            }
+            #endif
+        }
+
+        private void SetLeaderboardScoreClicked()
+        {
+            if (model.IsAuthenticated)
+            {
+                model.SetLeaderboardScore(100, success =>
+                {
+                    Debug.Log("score setted");
+                });
+            }
         }
 
         private void SettingsClicked()

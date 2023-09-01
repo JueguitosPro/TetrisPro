@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 namespace JueguitosPro.Models
 {
@@ -12,6 +11,11 @@ namespace JueguitosPro.Models
         public void PlayGamesAuthentication(Action<bool> authenticationCallback)
         {
             GooglePlayGamesWrapper.GooglePlayGamesAuthentication(authenticationCallback);
+        }
+
+        public void SetLeaderboardScore(float score, Action<bool> setScoreCallback)
+        {
+            GooglePlayGamesWrapper.SetLeaderboardScore((long)score, setScoreCallback);
         }
     }
 }

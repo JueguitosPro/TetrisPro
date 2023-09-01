@@ -9,15 +9,10 @@ namespace JueguitosPro.Controllers
     {
         public LoadingController(LoadingModel model, LoadingView view) : base(model, view)
         {
-        }
-        
-        public void Authenticate()
-        {
             SetLoadingProgress(0.4f, () =>
             {
                 model.PlayGamesAuthentication(AuthenticationCallback);
             });
-
         }
 
         private void SetLoadingProgress(float progress, Action eventCallback = null)
