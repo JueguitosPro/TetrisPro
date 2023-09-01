@@ -21,6 +21,17 @@ namespace JueguitosPro.Views
             backButton.onClick.AddListener(OnBackButtonClicked);
         }
 
+        public override void Hide(Action onHide = null)
+        {
+            base.Hide(onHide);
+            backButton.onClick.RemoveListener(OnBackButtonClicked);
+        }
+
+        private void OnDestroy()
+        {
+            onBackButtonClicked = null;
+        }
+
         public void SetLeaderboard(List<LeaderboardData> leaderboardData)
         {
             foreach (var data in leaderboardData)

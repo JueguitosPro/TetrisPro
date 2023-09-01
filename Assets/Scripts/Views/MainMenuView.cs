@@ -40,6 +40,15 @@ namespace JueguitosPro
             playGamesLoginButton.onClick.RemoveListener(OnLoginWithGoogleButtonClicked);
         }
 
+        private void OnDestroy()
+        {
+            onPlayGameButtonClicked = null;
+            onLeaderboardButtonClicked = null;
+            onSetLeaderboardScoreButtonClicked = null;
+            onSettingsButtonClicked = null;
+            onLoginWithGoogleButtonClicked = null;
+        }
+
         public void AllowPlayGamesLogin(bool enableLogin)
         {
             playGamesLoginButton.gameObject.SetActive(enableLogin);
