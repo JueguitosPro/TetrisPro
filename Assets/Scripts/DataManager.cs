@@ -1,12 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// Handles Save/Load <see cref="GameData"/>GameData from a json file
+    /// </summary>
     public class DataManager
     {
         private readonly string filePath = Path.Combine(Application.dataPath, Constants.DataFile);
@@ -27,6 +28,9 @@ namespace JueguitosPro
             private  set => gameData = value;
         }
 
+        /// <summary>
+        /// Saves the GameData into a file text called GameData.txt
+        /// </summary>
         public void SaveData()
         {
             string json = JsonConvert.SerializeObject(gameData);

@@ -7,10 +7,20 @@ using UnityEngine;
 
 namespace JueguitosPro
 { 
+    /// <summary>
+    /// Wrapper class that interacts with Google Play Games. It handles Authentication, and Leaderboards communication
+    /// </summary>
     public static class GooglePlayGamesWrapper
     {
+        /// <summary>
+        /// Returns true when there is an account authenticated with Google Play Games
+        /// </summary>
         public static bool IsAuthenticated => PlayGamesPlatform.Instance.IsAuthenticated();
 
+        /// <summary>
+        /// Authentication with Google Play Games
+        /// </summary>
+        /// <param name="authenticationCallback">Callback after authentication, true is it succeeded</param>
         public static void GooglePlayGamesAuthentication(Action<bool> authenticationCallback)
         {
             PlayGamesPlatform.Instance.Authenticate(status =>
@@ -19,11 +29,20 @@ namespace JueguitosPro
             });
         }
 
+        /// <summary>
+        /// Sets a new score to Google Play Games leaderboard
+        /// </summary>
+        /// <param name="score">New score to set to the leaderboard</param>
+        /// <param name="setScoreCallback">Callback after score registration</param>
         public static void SetLeaderboardScore(long score, Action<bool> setScoreCallback = null)
         {
             Social.ReportScore(score, GPGSIds.leaderboard_high_score, setScoreCallback);
         }
 
+        /// <summary>
+        /// Gets the Game's leaderboard from Google Play Games
+        /// </summary>
+        /// <param name="getLeaderboardCallback">Callback after getting the leaderboard</param>
         public static void GetLeaderboard(Action<List<LeaderboardData>> getLeaderboardCallback)
         {
             PlayGamesPlatform.Instance.LoadScores(
@@ -46,6 +65,7 @@ namespace JueguitosPro
                 });
         }
 
+        // Holi
         public static void GetUsernameWithUserID(List<string> usersID, Action<Dictionary<string,string>> getUsersCallback)
         {
             Social.LoadUsers(usersID.ToArray(), users =>

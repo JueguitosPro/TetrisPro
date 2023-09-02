@@ -1,6 +1,9 @@
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// Singleton serves as a central point of the game's managers
+    /// </summary>
     public class GameManager
     {
         public static GameManager Instance;

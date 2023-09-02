@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// Data that is saved in a json file
+    /// </summary>
     public class GameData
     {
         public SettingsData SettingsData { get; set; }
@@ -14,6 +17,9 @@ namespace JueguitosPro
         }
     }
     
+    /// <summary>
+    /// Player's game settings
+    /// </summary>
     public class SettingsData
     {
         public float GeneralVolume { get; set; }

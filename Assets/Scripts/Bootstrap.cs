@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// Inits the game instantiating our <see cref="GameManager"/> and the first <see cref="GameStateBase"/>
+    /// </summary>
     public class Bootstrap : MonoBehaviour
     {
         private void Awake()
