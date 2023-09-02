@@ -63,7 +63,11 @@ namespace JueguitosPro.Controllers
 
         private void SettingsClicked()
         {
-            // Open settings view
+            GameManager.Instance.GameStateManager.AddState(new GameStateSettings
+            {
+                PrefabPath = Constants.SettingsView,
+                allowOverlaping = false
+            });
         }
 
         private void PlayGameClicked()
