@@ -1,17 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
-using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
+    /// <summary>
+    /// Handles Leaderboard Game State to show and update leaderboard data
+    /// </summary>
     public class LeaderboardController : ControllerBase<LeaderboardModel,LeaderboardView>
     {
+        /// <inheritdoc/>
         public LeaderboardController(LeaderboardModel model, LeaderboardView view) : base(model, view)
         {
             view.onBackButtonClicked += OnBackButtonClicked;
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
+            // Mock Leaderboard Data
             List<LeaderboardData> leaderboardData = new List<LeaderboardData>()
             {
                 new() { Rank = 1, Score = 100, Username = "Juan", UserID = "fsdfg46ds54" },

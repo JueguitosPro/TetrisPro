@@ -65,7 +65,11 @@ namespace JueguitosPro
                 });
         }
 
-        // Holi
+        /// <summary>
+        /// Returns a dictionary of UserId and Username from a list of UserId 
+        /// </summary>
+        /// <param name="usersID">List of UserId to get Username</param>
+        /// <param name="getUsersCallback">Callback called after getting Usernames</param>
         public static void GetUsernameWithUserID(List<string> usersID, Action<Dictionary<string,string>> getUsersCallback)
         {
             Social.LoadUsers(usersID.ToArray(), users =>

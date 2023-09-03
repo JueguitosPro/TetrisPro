@@ -5,8 +5,12 @@ using JueguitosPro.Views;
 
 namespace JueguitosPro.Controllers
 {
+    /// <summary>
+    /// Handles Loading Game State, interacts with model and view to show data loading progress
+    /// </summary>
     public class LoadingController : ControllerBase<LoadingModel, LoadingView>
     {
+        /// <inheritdoc/>
         public LoadingController(LoadingModel model, LoadingView view) : base(model, view)
         {
             SetLoadingProgress(0.4f, () =>

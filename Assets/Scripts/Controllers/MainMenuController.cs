@@ -1,12 +1,15 @@
-using System.Collections.Generic;
 using JueguitosPro.GameStates;
 using JueguitosPro.Models;
 using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
+    /// <summary>
+    /// Handles Main Menu Game State and interacts with the view to move the player through the game
+    /// </summary>
     public class MainMenuController : ControllerBase<MainMenuModel,MainMenuView>
     {
+        /// <inheritdoc/>
         public MainMenuController(MainMenuModel model, MainMenuView view) : base(model, view)
         {
             view.onPlayGameButtonClicked += PlayGameClicked;

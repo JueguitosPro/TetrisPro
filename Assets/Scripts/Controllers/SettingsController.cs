@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
-using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
+    /// <summary>
+    /// Handles Settings Game State, interacts with <see cref="SettingsModel"/> and <see cref="SettingsView"/> to save
+    /// and load player's preferences in a JSON file
+    /// </summary>
     public class SettingsController : ControllerBase<SettingsModel,SettingsView>
     {
+        /// <inheritdoc/>
         public SettingsController(SettingsModel model, SettingsView view) : base(model, view)
         {
             view.onBackButtonClicked += OnBackButtonClicked;
