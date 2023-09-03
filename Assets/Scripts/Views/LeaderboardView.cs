@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace JueguitosPro.Views
 {
+    /// <summary>
+    /// Represents a view for displaying a leaderboard.
+    /// </summary>
     public class LeaderboardView : ViewBase
     {
         [SerializeField] private LeaderboardEntry leaderboardEntryPrefab;
@@ -13,14 +16,19 @@ namespace JueguitosPro.Views
         [SerializeField] private Button allTimeTab;
         [SerializeField] private Transform scrollViewContent;
 
+        /// <summary>
+        /// Event triggered when the back button is clicked.
+        /// </summary>
         public event Action onBackButtonClicked;
 
+        /// <inheritdoc/>
         public override void Show(Action onShow = null)
         {
             base.Show(onShow);
             backButton.onClick.AddListener(OnBackButtonClicked);
         }
 
+        /// <inheritdoc/>
         public override void Hide(Action onHide = null)
         {
             base.Hide(onHide);
@@ -32,6 +40,10 @@ namespace JueguitosPro.Views
             onBackButtonClicked = null;
         }
 
+        /// <summary>
+        /// Sets the leaderboard data and updates the view.
+        /// </summary>
+        /// <param name="leaderboardData">List of leaderboard data to display.</param>
         public void SetLeaderboard(List<LeaderboardData> leaderboardData)
         {
             foreach (var data in leaderboardData)

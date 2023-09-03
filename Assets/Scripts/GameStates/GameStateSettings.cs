@@ -5,8 +5,12 @@ using JueguitosPro.Views;
 
 namespace JueguitosPro.GameStates
 {
+    /// <summary>
+    /// Represents a game state for managing settings.
+    /// </summary>
     public class GameStateSettings : GameStateBase
     {
+        /// <inheritdoc/>
         public override void OnCreate(Action onCreated = null)
         {
             InstantiateView<SettingsView>(MainUI.CanvasLayer.Overlay, view =>

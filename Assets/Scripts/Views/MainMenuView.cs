@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// Represents the main menu view in the game.
+    /// </summary>
     public class MainMenuView : ViewBase
     {
         [SerializeField] private Button playGameButton;
@@ -14,12 +17,32 @@ namespace JueguitosPro
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button playGamesLoginButton;
 
+        /// <summary>
+        /// Event triggered when the Play Game button is clicked.
+        /// </summary>
         public event Action onPlayGameButtonClicked;
+
+        /// <summary>
+        /// Event triggered when the Leaderboard button is clicked.
+        /// </summary>
         public event Action onLeaderboardButtonClicked;
+
+        /// <summary>
+        /// Event triggered when the Set Leaderboard Score button is clicked.
+        /// </summary>
         public event Action onSetLeaderboardScoreButtonClicked;
+
+        /// <summary>
+        /// Event triggered when the Settings button is clicked.
+        /// </summary>
         public event Action onSettingsButtonClicked;
+
+        /// <summary>
+        /// Event triggered when the Login with Google button is clicked.
+        /// </summary>
         public event Action onLoginWithGoogleButtonClicked;
 
+        /// <inheritdoc/>
         public override void Show(Action onShow = null)
         {
             base.Show(onShow);
@@ -30,6 +53,7 @@ namespace JueguitosPro
             playGamesLoginButton.onClick.AddListener(OnLoginWithGoogleButtonClicked);
         }
 
+        /// <inheritdoc/>
         public override void Hide(Action onHide = null)
         {
             base.Hide(onHide);
@@ -49,6 +73,10 @@ namespace JueguitosPro
             onLoginWithGoogleButtonClicked = null;
         }
 
+        /// <summary>
+        /// Allows enabling or disabling the Play Games login button.
+        /// </summary>
+        /// <param name="enableLogin">True to enable, false to disable the login button.</param>
         public void AllowPlayGamesLogin(bool enableLogin)
         {
             playGamesLoginButton.gameObject.SetActive(enableLogin);

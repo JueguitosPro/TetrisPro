@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace JueguitosPro
 {
+    /// <summary>
+    /// The `Bootstrap` class initializes and configures the game upon startup.
+    /// </summary>
     public class Bootstrap : MonoBehaviour
     {
         private void Awake()
