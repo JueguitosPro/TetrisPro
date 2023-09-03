@@ -5,11 +5,15 @@ using JueguitosPro.Views;
 namespace JueguitosPro.Controllers
 {
     /// <summary>
-    /// Handles Leaderboard Game State to show and update leaderboard data
+    /// Controller for managing the Leaderboard feature.
     /// </summary>
     public class LeaderboardController : ControllerBase<LeaderboardModel,LeaderboardView>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LeaderboardController"/> class.
+        /// </summary>
+        /// <param name="model">The LeaderboardModel instance.</param>
+        /// <param name="view">The LeaderboardView instance.</param>
         public LeaderboardController(LeaderboardModel model, LeaderboardView view) : base(model, view)
         {
             view.onBackButtonClicked += OnBackButtonClicked;

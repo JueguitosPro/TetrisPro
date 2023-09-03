@@ -5,39 +5,42 @@ using JueguitosPro.GameStates;
 namespace JueguitosPro
 {
     /// <summary>
-    /// Keeps track of the Game states, it can add, remove or hide and state
+    /// Manages the game state stack and transitions between different game states.
     /// </summary>
     public class GameStateManager
     {
         private Stack<IGameState> gameStates = new();
 
         /// <summary>
-        /// Adds a new state into the stack, deactivate the current and activate the new one
+        /// Adds a new game state to the stack and activates it.
         /// </summary>
-        /// <param name="gameState">New game state to add and activate</param>
-        /// <param name="activated">Callback after state activation</param>
-        /// <typeparam name="T">The state must be an inheritor of <see cref="GameStateBase"/></typeparam>
+        /// <typeparam name="T">The type of the game state to add.</typeparam>
+        /// <param name="gameState">The instance of the game state to add.</param>
+        /// <param name="activated">An optional action to perform when the game state is activated.</param>
+        /// <remarks>
+        /// If the game state stack is not empty and the new game state does not allow overlapping,
+        /// the currently active game state will be deactivated before adding the new one.
+        /// </remarks>
         public void AddState<T>(T gameState, Action activated = null) where T : GameStateBase
         {
-            if (gameStates.Count > 0 && !gameState.allowOverlaping)
+            if (gameStates.Count > 0 && !gameState.allowOverlapping)
             {
                 IGameState currentGameState = gameStates.Peek();
                 currentGameState.OnDeactivate();
             }
             gameStates.Push(gameState);
-            gameState.OnCreate(()=>gameState.OnActivate(activated));
+            gameState.OnCreate(() => gameState.OnActivate(activated));
         }
-        
+
         /// <summary>
-        /// Removes one state from the stack and activate the next one if there is one
+        /// Pops the current game state from the stack and deactivates it.
         /// </summary>
-        /// <param name="deactivated">Callback after state deactivation</param>
+        /// <param name="deactivated">An optional action to perform when the game state is deactivated.</param>
         public void PopState(Action deactivated = null)
         {
             if (gameStates.Count > 0)
             {
                 IGameState gameState = gameStates.Pop();
-                
                 gameState.OnRemove();
             }
 
@@ -49,7 +52,7 @@ namespace JueguitosPro
         }
 
         /// <summary>
-        /// Clear the state stack
+        /// Pops all game states from the stack, deactivating each one.
         /// </summary>
         public void PopAllStates()
         {

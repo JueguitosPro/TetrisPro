@@ -1,15 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using JueguitosPro.Controllers;
 using JueguitosPro.Models;
 using JueguitosPro.Views;
-using UnityEngine;
 
 namespace JueguitosPro.GameStates
 {
+    /// <summary>
+    /// Represents a game state for the leaderboard screen.
+    /// </summary>
     public class GameStateLeaderboard : GameStateBase
     {
+        /// <inheritdoc/>
         public override void OnCreate(Action onCreated = null)
         {
             InstantiateView<LeaderboardView>(MainUI.CanvasLayer.Overlay, view =>

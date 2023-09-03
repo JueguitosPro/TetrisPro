@@ -5,11 +5,15 @@ using UnityEngine;
 namespace JueguitosPro.Controllers
 {
     /// <summary>
-    /// Handles Main Menu Game State and interacts with the view to move the player through the game
+    /// Controller for the main menu, responsible for handling user interactions and managing views and models.
     /// </summary>
     public class MainMenuController : ControllerBase<MainMenuModel,MainMenuView>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Constructor for MainMenuController.
+        /// </summary>
+        /// <param name="model">The model associated with the controller.</param>
+        /// <param name="view">The view associated with the controller.</param>
         public MainMenuController(MainMenuModel model, MainMenuView view) : base(model, view)
         {
             view.onPlayGameButtonClicked += PlayGameClicked;
@@ -69,7 +73,7 @@ namespace JueguitosPro.Controllers
             GameManager.Instance.GameStateManager.AddState(new GameStateSettings
             {
                 PrefabPath = Constants.SettingsView,
-                allowOverlaping = false
+                allowOverlapping = false
             });
         }
 
@@ -83,7 +87,7 @@ namespace JueguitosPro.Controllers
             GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
             {
                 PrefabPath = Constants.PopUpView,
-                allowOverlaping = true,
+                allowOverlapping = true,
                 popUpMessage = success ? 
                     $"Thank you! You can enjoy leaderboards and achievements now." : 
                     $"Make sure you have an account in Google Play Games and try again."

@@ -13,6 +13,9 @@ namespace JueguitosPro
         private readonly string filePath = Path.Combine(Application.dataPath, Constants.DataFile);
         private GameData gameData;
         
+        /// <summary>
+        /// Gets or sets the game data. When getting, it loads the data if not already loaded.
+        /// </summary>
         public GameData GameData
         {
             get
@@ -27,9 +30,9 @@ namespace JueguitosPro
 
             private  set => gameData = value;
         }
-
+        
         /// <summary>
-        /// Saves the GameData into a file text called GameData.txt
+        /// Saves the game data to a file in JSON format.
         /// </summary>
         public void SaveData()
         {

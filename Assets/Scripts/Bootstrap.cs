@@ -5,7 +5,7 @@ using UnityEngine;
 namespace JueguitosPro
 {
     /// <summary>
-    /// Inits the game instantiating our <see cref="GameManager"/> and the first <see cref="GameStateBase"/>
+    /// The `Bootstrap` class initializes and configures the game upon startup.
     /// </summary>
     public class Bootstrap : MonoBehaviour
     {

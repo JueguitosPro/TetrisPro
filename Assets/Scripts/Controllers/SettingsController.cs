@@ -4,12 +4,15 @@ using JueguitosPro.Views;
 namespace JueguitosPro.Controllers
 {
     /// <summary>
-    /// Handles Settings Game State, interacts with <see cref="SettingsModel"/> and <see cref="SettingsView"/> to save
-    /// and load player's preferences in a JSON file
+    /// Controller class responsible for managing settings-related interactions between the model and view.
     /// </summary>
     public class SettingsController : ControllerBase<SettingsModel,SettingsView>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsController"/> class.
+        /// </summary>
+        /// <param name="model">The settings model.</param>
+        /// <param name="view">The settings view.</param>
         public SettingsController(SettingsModel model, SettingsView view) : base(model, view)
         {
             view.onBackButtonClicked += OnBackButtonClicked;

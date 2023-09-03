@@ -2,24 +2,27 @@
 namespace JueguitosPro
 {
     /// <summary>
-    /// Holds the data used to show Leaderboards
+    /// Represents leaderboard data for a user including their ID, username, score, and rank.
     /// </summary>
     public class LeaderboardData
     {
         /// <summary>
-        /// Id of the user that is registered in the leaderboard
+        /// Gets or sets the unique user ID associated with the leaderboard data.
         /// </summary>
         public string UserID { get; set; }
+
         /// <summary>
-        /// Username of the player registered in the leaderboard
+        /// Gets or sets the username of the user associated with the leaderboard data.
         /// </summary>
         public string Username { get; set; }
+
         /// <summary>
-        /// User's high score
+        /// Gets or sets the user's score in the leaderboard.
         /// </summary>
         public float Score { get; set; }
+
         /// <summary>
-        /// User's rank in the leaderboard
+        /// Gets or sets the rank of the user in the leaderboard.
         /// </summary>
         public int Rank { get; set; }
     }

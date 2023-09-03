@@ -4,10 +4,17 @@ using System.Linq;
 
 namespace JueguitosPro.Models
 {
+    /// <summary>
+    /// Represents a model for managing leaderboards data.
+    /// </summary>
     public class LeaderboardModel : ModelBase
     {
         private event Action<List<LeaderboardData>> onLeaderboardsEvent;
 
+        /// <summary>
+        /// Retrieves the leaderboard data and invokes the provided callback when complete.
+        /// </summary>
+        /// <param name="onGetLeaderboards">Callback to be invoked with the leaderboard data.</param>
         public void GetLeaderboard(Action<List<LeaderboardData>> onGetLeaderboards)
         {
             onLeaderboardsEvent += onGetLeaderboards;
