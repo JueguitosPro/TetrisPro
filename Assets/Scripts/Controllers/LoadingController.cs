@@ -25,28 +25,24 @@ namespace JueguitosPro.Controllers
 
         private void SetLoadingProgress(float progress, Action eventCallback = null)
         {
-            view.RegisterProgressEvent(progress, 1f, eventCallback);
+            view.RegisterProgressEvent(progress, 0.5f, eventCallback);
         }
 
         private void AuthenticationCallback(bool success)
         {
-            SetLoadingProgress(1f, () =>
+            SetLoadingProgress(0.8f, () =>
             {
                 if (success)
                 {
-                    GameManager.Instance.GameStateManager.PopAllStates();
-                    GameManager.Instance.GameStateManager.AddState(new GameStateMainMenu
-                    {
-                        PrefabPath = Constants.MainMenuView
-                    });
+                    model.GetUserInformation(GetUserInformationCallback);
                 }
                 else
                 {
                     GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
                     {
                         PrefabPath = Constants.PopUpView,
-                        allowOverlapping = true,
-                        popUpMessage =
+                        AllowOverlapping = true,
+                        PopUpMessage =
                             $"If you want to use all game's features we recommend to login with Google Play Games.",
                         okButtonCallback = () =>
                         {
@@ -58,6 +54,18 @@ namespace JueguitosPro.Controllers
                         }
                     });
                 }
+            });
+        }
+
+        private void GetUserInformationCallback()
+        {
+            SetLoadingProgress(1.0f, () =>
+            {
+                GameManager.Instance.GameStateManager.PopAllStates();
+                GameManager.Instance.GameStateManager.AddState(new GameStateMainMenu
+                {
+                    PrefabPath = Constants.MainMenuView
+                });
             });
         }
     }

@@ -19,7 +19,7 @@ namespace JueguitosPro
         /// <summary>
         /// Gets or sets the user's score in the leaderboard.
         /// </summary>
-        public float Score { get; set; }
+        public int Score { get; set; }
 
         /// <summary>
         /// Gets or sets the rank of the user in the leaderboard.

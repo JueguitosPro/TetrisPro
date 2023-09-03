@@ -20,15 +20,5 @@ namespace JueguitosPro.Models
         {
             GooglePlayGamesWrapper.GooglePlayGamesAuthentication(authenticationCallback);
         }
-
-        /// <summary>
-        /// Sets the player's score on the leaderboard and invokes the provided callback upon completion.
-        /// </summary>
-        /// <param name="score">The player's score to set on the leaderboard.</param>
-        /// <param name="setScoreCallback">A callback to be invoked with the result of setting the score.</param>
-        public void SetLeaderboardScore(float score, Action<bool> setScoreCallback)
-        {
-            GooglePlayGamesWrapper.SetLeaderboardScore((long)score, setScoreCallback);
-        }
     }
 }

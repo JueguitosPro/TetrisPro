@@ -1,7 +1,6 @@
 using System;
 using JueguitosPro.Views;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace JueguitosPro
@@ -13,7 +12,6 @@ namespace JueguitosPro
     {
         [SerializeField] private Button playGameButton;
         [SerializeField] private Button leaderboardButton;
-        [SerializeField] private Button setLeaderboardScoreButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button playGamesLoginButton;
 
@@ -26,11 +24,6 @@ namespace JueguitosPro
         /// Event triggered when the Leaderboard button is clicked.
         /// </summary>
         public event Action onLeaderboardButtonClicked;
-
-        /// <summary>
-        /// Event triggered when the Set Leaderboard Score button is clicked.
-        /// </summary>
-        public event Action onSetLeaderboardScoreButtonClicked;
 
         /// <summary>
         /// Event triggered when the Settings button is clicked.
@@ -48,7 +41,6 @@ namespace JueguitosPro
             base.Show(onShow);
             playGameButton.onClick.AddListener(OnPlayGameButtonClicked);
             leaderboardButton.onClick.AddListener(OnLeaderboardButtonClicked);
-            setLeaderboardScoreButton.onClick.AddListener(OnSetLeaderboardScoreButtonClicked);
             settingsButton.onClick.AddListener(OnSettingsButtonClicked);
             playGamesLoginButton.onClick.AddListener(OnLoginWithGoogleButtonClicked);
         }
@@ -59,7 +51,6 @@ namespace JueguitosPro
             base.Hide(onHide);
             playGameButton.onClick.RemoveListener(OnPlayGameButtonClicked);
             leaderboardButton.onClick.RemoveListener(OnLeaderboardButtonClicked);
-            setLeaderboardScoreButton.onClick.RemoveListener(OnSetLeaderboardScoreButtonClicked);
             settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
             playGamesLoginButton.onClick.RemoveListener(OnLoginWithGoogleButtonClicked);
         }
@@ -68,7 +59,6 @@ namespace JueguitosPro
         {
             onPlayGameButtonClicked = null;
             onLeaderboardButtonClicked = null;
-            onSetLeaderboardScoreButtonClicked = null;
             onSettingsButtonClicked = null;
             onLoginWithGoogleButtonClicked = null;
         }
@@ -92,11 +82,6 @@ namespace JueguitosPro
             onLeaderboardButtonClicked?.Invoke();
         }
 
-        private void OnSetLeaderboardScoreButtonClicked()
-        {
-            onSetLeaderboardScoreButtonClicked?.Invoke();
-        }
-        
         private void OnSettingsButtonClicked()
         {
             onSettingsButtonClicked?.Invoke();

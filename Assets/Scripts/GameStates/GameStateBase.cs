@@ -17,7 +17,7 @@ namespace JueguitosPro.GameStates
         /// <summary>
         /// Determines whether this game state allows overlapping with other states.
         /// </summary>
-        public bool allowOverlapping;
+        public bool AllowOverlapping;
         
         private ViewBase viewBase;
 
