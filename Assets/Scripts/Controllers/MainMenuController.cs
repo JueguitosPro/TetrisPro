@@ -48,8 +48,8 @@ namespace JueguitosPro.Controllers
                 GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
                 {
                     PrefabPath = Constants.PopUpView,
-                    allowOverlaping = true,
-                    popUpMessage = $"Please login with Play Games to compete with worldwide players."
+                    AllowOverlapping = true,
+                    PopUpMessage = $"Please login with Play Games to compete with worldwide players."
                 });
             }
             #endif
