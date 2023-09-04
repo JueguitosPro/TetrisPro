@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace JueguitosPro
     {
         private readonly string filePath = Path.Combine(Application.dataPath, Constants.DataFile);
         private GameData gameData;
+        private UserData userData;
         
         /// <summary>
         /// Gets or sets the game data. When getting, it loads the data if not already loaded.
@@ -30,6 +32,11 @@ namespace JueguitosPro
 
             private  set => gameData = value;
         }
+
+        /// <summary>
+        /// Returns the user data associated with this player.
+        /// </summary>
+        public UserData UserData => userData;
         
         /// <summary>
         /// Saves the game data to a file in JSON format.
@@ -68,6 +75,15 @@ namespace JueguitosPro
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Sets the user data.
+        /// </summary>
+        /// <param name="userData">The user data to set.</param>
+        public void SetUserData(UserData userData)
+        {
+            this.userData = userData;
         }
     }
 }

@@ -53,4 +53,19 @@ namespace JueguitosPro
         }
     }
 
+    /// <summary>
+    /// Represents user data including their unique identifier and highest score.
+    /// </summary>
+    public class UserData
+    {
+        /// <summary>
+        /// Gets or sets the unique identifier of the user.
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the highest score achieved by the user.
+        /// </summary>
+        public int UserHighestScore { get; set; }
+    }
 }

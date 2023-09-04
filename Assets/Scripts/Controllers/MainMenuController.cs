@@ -1,6 +1,5 @@
 using JueguitosPro.GameStates;
 using JueguitosPro.Models;
-using UnityEngine;
 
 namespace JueguitosPro.Controllers
 {
@@ -18,7 +17,6 @@ namespace JueguitosPro.Controllers
         {
             view.onPlayGameButtonClicked += PlayGameClicked;
             view.onLeaderboardButtonClicked += LeaderboardClicked;
-            view.onSetLeaderboardScoreButtonClicked += SetLeaderboardScoreClicked;
             view.onSettingsButtonClicked += SettingsClicked;
             view.onLoginWithGoogleButtonClicked += LoginWithGoogleClicked;
             
@@ -50,22 +48,11 @@ namespace JueguitosPro.Controllers
                 GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
                 {
                     PrefabPath = Constants.PopUpView,
-                    allowOverlaping = true,
-                    popUpMessage = $"Please login with Play Games to compete with worldwide players."
+                    AllowOverlapping = true,
+                    PopUpMessage = $"Please login with Play Games to compete with worldwide players."
                 });
             }
             #endif
-        }
-
-        private void SetLeaderboardScoreClicked()
-        {
-            if (model.IsAuthenticated)
-            {
-                model.SetLeaderboardScore(100, success =>
-                {
-                    Debug.Log("score setted");
-                });
-            }
         }
 
         private void SettingsClicked()
@@ -73,7 +60,7 @@ namespace JueguitosPro.Controllers
             GameManager.Instance.GameStateManager.AddState(new GameStateSettings
             {
                 PrefabPath = Constants.SettingsView,
-                allowOverlapping = false
+                AllowOverlapping = false
             });
         }
 
@@ -87,8 +74,8 @@ namespace JueguitosPro.Controllers
             GameManager.Instance.GameStateManager.AddState(new GameStatePopUp
             {
                 PrefabPath = Constants.PopUpView,
-                allowOverlapping = true,
-                popUpMessage = success ? 
+                AllowOverlapping = true,
+                PopUpMessage = success ? 
                     $"Thank you! You can enjoy leaderboards and achievements now." : 
                     $"Make sure you have an account in Google Play Games and try again."
             });

@@ -4,6 +4,7 @@ using System.Linq;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace JueguitosPro
 {
@@ -16,6 +17,22 @@ namespace JueguitosPro
         /// Checks if the player is authenticated in Google Play Games.
         /// </summary>
         public static bool IsAuthenticated => PlayGamesPlatform.Instance.IsAuthenticated();
+
+        /// <summary>
+        /// Gets the local user if authenticated, or returns null.
+        /// </summary>
+        public static ILocalUser LocalUser
+        {
+            get
+            {
+                if (IsAuthenticated)
+                {
+                    return Social.localUser;
+                }
+
+                return null;
+            }
+        }
 
         /// <summary>
         /// Authenticate the player with Google Play Games.
@@ -42,13 +59,16 @@ namespace JueguitosPro
         /// <summary>
         /// Gets the leaderboard data.
         /// </summary>
+        /// <param name="isPlayerCentered">Indicates whether the player's score should be at the center of the leaderboard.</param>
+        /// <param name="rowCount">The number of leaderboard entries to retrieve.</param>
         /// <param name="getLeaderboardCallback">Callback to invoke with the leaderboard data.</param>
-        public static void GetLeaderboard(Action<List<LeaderboardData>> getLeaderboardCallback)
+        public static void GetLeaderboard(bool isPlayerCentered, int rowCount,
+            Action<List<LeaderboardData>> getLeaderboardCallback)
         {
             PlayGamesPlatform.Instance.LoadScores(
                 GPGSIds.leaderboard_high_score,
-                LeaderboardStart.TopScores,
-                10,
+                isPlayerCentered ? LeaderboardStart.PlayerCentered : LeaderboardStart.TopScores,
+                rowCount,
                 LeaderboardCollection.Public,
                 LeaderboardTimeSpan.AllTime,
                 data =>
@@ -57,7 +77,7 @@ namespace JueguitosPro
                         new LeaderboardData
                         {
                             UserID = score.userID, 
-                            Score = score.value, 
+                            Score = (int)score.value, 
                             Rank = score.rank
                         }).ToList();
 

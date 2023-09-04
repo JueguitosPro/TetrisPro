@@ -18,7 +18,7 @@ namespace JueguitosPro.Models
         public void GetLeaderboard(Action<List<LeaderboardData>> onGetLeaderboards)
         {
             onLeaderboardsEvent += onGetLeaderboards;
-            GooglePlayGamesWrapper.GetLeaderboard(LeaderboardsCallback);
+            GooglePlayGamesWrapper.GetLeaderboard(false, 10, LeaderboardsCallback);
         }
         
         private void LeaderboardsCallback(List<LeaderboardData> leaderboardsData)

@@ -21,5 +21,6 @@ namespace JueguitosPro
         public static readonly string MainMenuView = "UI/Views/MainMenuView";
         public static readonly string LeaderboardView = "UI/Views/LeaderboardView";
         public static readonly string SettingsView = "UI/Views/SettingsView";
+        public static readonly string ScoreView = "UI/Views/ScoreView";
     }
 }

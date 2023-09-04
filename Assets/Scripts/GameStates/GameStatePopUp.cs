@@ -13,7 +13,7 @@ namespace JueguitosPro.GameStates
         /// <summary>
         /// The message to display in the pop-up.
         /// </summary>
-        public string popUpMessage;
+        public string PopUpMessage;
 
         /// <summary>
         /// A callback action to execute when the OK button is pressed.
@@ -32,7 +32,7 @@ namespace JueguitosPro.GameStates
             {
                 onCreated?.Invoke();
                 PopUpModel model = new PopUpModel();
-                PopUpController controller = new PopUpController(model, view, popUpMessage, okButtonCallback, cancelButtonCallback);
+                PopUpController controller = new PopUpController(model, view, PopUpMessage, okButtonCallback, cancelButtonCallback);
             });
         }
     }
