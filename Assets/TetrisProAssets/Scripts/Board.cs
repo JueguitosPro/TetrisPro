@@ -13,6 +13,9 @@ namespace JueguitosPro
         [SerializeField] private Vector3Int spawnPosition;
         public Vector2Int boardSize = new Vector2Int(10, 20);
         
+        // TEMP
+        public ScoringSystem scoringSystem;
+        
         public RectInt bounds
         {
             get
@@ -57,6 +60,7 @@ namespace JueguitosPro
             // TODO: Implement the game over
             Debug.LogError("GAME OVER");
             tilemap.ClearAllTiles();
+            scoringSystem.ResetPoints();
         }
 
         public void Set(Piece piece)
@@ -102,12 +106,14 @@ namespace JueguitosPro
         public void ClearLines()
         {
             int row = bounds.yMin;
-
+            int lines = 0;
+            
             // if the line is full we need to re test the line because all the above lines will fall down
             while (row < bounds.yMax)
             {
                 if (IsLineFull(row))
                 {
+                    lines++;
                     LineClear(row);
                 }
                 else
@@ -115,7 +121,7 @@ namespace JueguitosPro
                     row++;
                 }
             }
-            
+            scoringSystem.LineCompleted(lines, 1);
         }
 
         private bool IsLineFull(int row)

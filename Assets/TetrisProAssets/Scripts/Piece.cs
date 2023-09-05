@@ -66,7 +66,10 @@ namespace JueguitosPro
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                Move(Vector2Int.down);
+                if (Move(Vector2Int.down))
+                {
+                    board.scoringSystem.AddSlowDropPoints();
+                }
             }
             
             if (Input.GetKeyDown(KeyCode.Space))
@@ -103,6 +106,7 @@ namespace JueguitosPro
         {
             while (Move(Vector2Int.down))
             {
+                board.scoringSystem.AddHardDropPoints();
                 continue;
             }
 
@@ -139,8 +143,7 @@ namespace JueguitosPro
             {
                 rotationIndex = originalRotationIndex;
                 ApplyRotationMatrix(-direction);
-            } 
-            
+            }
         }
 
         private void ApplyRotationMatrix(int direction)
