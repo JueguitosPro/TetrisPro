@@ -41,7 +41,7 @@ namespace JueguitosPro
         public void SpawnPiece()
         {
             int random = Random.Range(0, tetrisData.Length);
-            TetrisData data = tetrisData[0];
+            TetrisData data = tetrisData[random];
             
             activePiece.Initialize(this, spawnPosition, data);
 
