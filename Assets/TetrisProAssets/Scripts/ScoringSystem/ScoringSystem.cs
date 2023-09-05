@@ -7,14 +7,6 @@ namespace JueguitosPro
 {
     public class ScoringSystem : MonoBehaviour
     {
-        public static readonly int SLOW_DROP_POINTS_PER_CELL = 1; 
-        public static readonly int HARD_DROP_POINTS_PER_CELL = 2;
-        
-        public static readonly int SINGLE_LINE_POINTS = 100;
-        public static readonly int DOUBLE_LINE_POINTS = 300;
-        public static readonly int TRIPLE_LINE_POINTS = 500;
-        public static readonly int TETRIS_POINTS = 800;
-
         [SerializeField] private int currentScore = 0;
         [SerializeField] private int consecutiveLines = 0;
         [SerializeField] private bool lastMoveWasTetris = false;
@@ -24,14 +16,15 @@ namespace JueguitosPro
         
         public void AddSlowDropPoints()
         {
-            currentScore += SLOW_DROP_POINTS_PER_CELL;
-            currentDropPoints = SLOW_DROP_POINTS_PER_CELL;
+            currentScore += Constants.SLOW_DROP_POINTS_PER_CELL;
+            currentDropPoints = Constants.SLOW_DROP_POINTS_PER_CELL;
             dropCells++;
         }
+        
         public void AddHardDropPoints()
         {
-            currentScore += HARD_DROP_POINTS_PER_CELL;
-            currentDropPoints = HARD_DROP_POINTS_PER_CELL;
+            currentScore += Constants.HARD_DROP_POINTS_PER_CELL;
+            currentDropPoints = Constants.HARD_DROP_POINTS_PER_CELL;
             dropCells++;
         }
 
@@ -47,16 +40,16 @@ namespace JueguitosPro
             switch (linesCleared)
             {
                 case 1:
-                    linesCore += SINGLE_LINE_POINTS * level;
+                    linesCore += Constants.SINGLE_LINE_POINTS * level;
                     break;
                 case 2:
-                    linesCore += DOUBLE_LINE_POINTS * level;
+                    linesCore += Constants.DOUBLE_LINE_POINTS * level;
                     break;
                 case 3:
-                    linesCore += TRIPLE_LINE_POINTS * level;
+                    linesCore += Constants.TRIPLE_LINE_POINTS * level;
                     break;
                 case 4:
-                    linesCore += TETRIS_POINTS * level;
+                    linesCore += Constants.TETRIS_POINTS * level;
                     break;
             }
 
@@ -80,8 +73,6 @@ namespace JueguitosPro
                 lastClearedLinesAmount = linesCleared;
                 lastMoveWasTetris = (linesCleared >= 4);
             }
-            
-
         }
         
         public void ResetPoints()

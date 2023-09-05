@@ -7,6 +7,15 @@ namespace JueguitosPro
     /// </summary>
     public static class Constants
     {
+        // Score
+        public static readonly int SLOW_DROP_POINTS_PER_CELL = 1; 
+        public static readonly int HARD_DROP_POINTS_PER_CELL = 2;
+        
+        public static readonly int SINGLE_LINE_POINTS = 100;
+        public static readonly int DOUBLE_LINE_POINTS = 300;
+        public static readonly int TRIPLE_LINE_POINTS = 500;
+        public static readonly int TETRIS_POINTS = 800;
+        
         // Color used for displaying developer messages.
         public static Color ERROR_COLOR = Color.red;
         public static Color WARNING_COLOR = Color.yellow;
